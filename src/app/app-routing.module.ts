@@ -15,6 +15,7 @@ import {EditGuardService} from './common/service/edit-guard.service';
 import {PostAddComponent} from './post/post-add/post-add.component';
 import {PostSearchListComponent} from './post/post-search-list/post-search-list.component';
 import {SearchPostComponent} from './post/search-post/search-post.component';
+import {NotFoundComponent} from './markup/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'search-posts',
     component: SearchPostComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 

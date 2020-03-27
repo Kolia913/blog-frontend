@@ -14,6 +14,7 @@ import {UserModule} from './user/user.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthGuardService} from './common/service/auth-guard.service';
 import {EditGuardService} from './common/service/edit-guard.service';
+import { NotFoundComponent } from './markup/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {EditGuardService} from './common/service/edit-guard.service';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    ContentComponent
+    ContentComponent,
+    NotFoundComponent
   ],
     imports: [
         BrowserModule,
