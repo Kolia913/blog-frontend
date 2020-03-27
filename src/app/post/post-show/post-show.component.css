@@ -1,0 +1,10 @@
+.post-show-image{
+  width: 60rem;
+  height: 30rem;
+  margin: 1rem;
+  alignment: center;
+}
+.post-content{
+  tab-size: 4;
+  white-space: pre-wrap;
+}
