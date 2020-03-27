@@ -1,0 +1,27 @@
+.mb-2, .my-2 {
+  margin-bottom: .5rem!important;
+}
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+div {
+  display: block;
+}
+.post-img{
+  width: 8em;
+  height: 8rem;
+  right: 1.5rem;
+  overflow: auto;
+  position: absolute;
+  border-radius: 0.1rem;
+  box-shadow: 0 0 4px whitesmoke;
+}

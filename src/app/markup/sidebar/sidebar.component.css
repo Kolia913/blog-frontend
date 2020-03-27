@@ -1,0 +1,21 @@
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+.pb-1, .py-1 {
+  padding-bottom: .25rem!important;
+}
+.pt-1, .py-1 {
+  padding-top: .25rem!important;
+}
+.mb-2, .my-2 {
+  margin-bottom: .5rem!important;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+div {
+  display: block;
+}

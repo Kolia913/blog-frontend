@@ -1,0 +1,7 @@
+<app-post-item *ngFor="let post of this.postService.posts | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
+               [post]="post"></app-post-item>
+<ngb-pagination *ngIf="this.postService.posts"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="this.postService.posts.length"></ngb-pagination>
+

@@ -1,0 +1,14 @@
+<div class="col-md-12">
+  <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+<div class="card-body d-flex flex-column align-items-start">
+  <strong class="d-inline-block mb-2 text-strong" [ngStyle]="{'color': this.categoryColor}">{{this.categoryName}}</strong>
+  <h3 class="mb-0">
+    <a class="text-dark">{{post.title}}</a>
+  </h3>
+  <div class="mb-1 text-muted">{{post.created_at | date: 'dd LLL yyy HH:m'| lowercase}}</div>
+  <p class="card-text mb-auto" style="margin-right: 15%">{{post.description}}</p>
+  <img class="post-img" alt="Thumbnail [200x250]" src="{{post.imageUrl}}">
+  <a [routerLink]="['/posts',post.slug]">Continue reading</a>
+</div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div id="formContent">
+  <!-- Tabs Titles -->
+
+  <!-- Icon -->
+  <!--<div class="fadeIn first">
+    <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon">
+  </div>-->
+
+  <!-- Login Form -->
+  <form (submit)="submit()" [formGroup]="loginForm">
+    <input style="text-align: center; width: 15rem; margin: 2rem 1rem 1rem 38%;"
+           [formControlName]="'email'" type="email" id="email" class="form-control" name="email" placeholder="email" required>
+    <input style="text-align: center; width: 15rem; margin: 1rem 1rem 1rem 38%;"
+           [formControlName]="'password'" type="password" id="password" class="form-control" name="login" placeholder="password" required>
+    <div *ngIf="this.error" class="alert alert-danger">{{this.error}}</div>
+    <input style="margin: 0 1rem 1rem 46%;"
+      type="submit" class="btn btn-primary" value="Log In"><br>
+    <div style="margin-left: 42%">
+    <label class="text-muted">No account?</label>&nbsp;<a [routerLink]="['/register']" class="text-primary">Register</a>
+    </div>
+  </form>
+
+  <!-- Remind Passowrd -->
+  <!--<div id="formFooter">
+    <a class="underlineHover" href="#">Forgot Password?</a>
+  </div>-->
+
+</div>

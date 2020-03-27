@@ -1,0 +1,9 @@
+<app-post-item  *ngFor="let post of this.postService.filteredPosts | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
+               [post]="post"></app-post-item>
+<div class="alert alert-danger" style="margin: 2%" *ngIf="error">{{error}}</div>
+<ngb-pagination *ngIf="this.postService.filteredPosts"
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="this.postService.filteredPosts.length"></ngb-pagination>
+
+

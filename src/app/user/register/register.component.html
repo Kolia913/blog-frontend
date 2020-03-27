@@ -1,0 +1,10 @@
+<div class="container">
+  <form [formGroup]="registerForm" (submit)="submit()" >
+    <input class="form-control" [formControlName]="'name'" type="text" placeholder="name"><br>
+    <input class="form-control" [formControlName]="'email'" type="email" placeholder="email" ><br>
+    <input class="form-control" [formControlName]="'passwordConfirm'" type="password" placeholder="password"><br>
+    <input class="form-control" [formControlName]="'password'" type="password" placeholder="confirm password"><br>
+    <div *ngIf="errors" class="alert alert-danger">{{errors}}</div>
+    <input style="margin-left: 44%; margin-right: 44%; margin-bottom: 1.5rem; width: 8rem" type="submit" class="btn btn-primary" value="Register!"><br>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<div class="container">
+  <form [formGroup]="editPost" (submit)="submit()">
+    <input class="form-control" [formControlName]="'title'" type="text" placeholder="Title"><br>
+    <select class="form-control" [formControlName]="'category'">
+      <option *ngFor="let category of this.categoryService.categories" [value]="category.slug"  [ngStyle]="{'color': category.color}">{{category.title}}</option>
+    </select><br>
+    <input class="form-control" [formControlName]="'description'" type="text" placeholder="Description"><br>
+    <input class="form-control" [formControlName]="'imageUrl'" type="text" placeholder="Image Url">
+    <img style="width: 10rem; height: 10rem; margin: 2%; border-radius: 1rem" src="{{imageUrl}}" alt="Invalid url :("><br>
+    <textarea class="form-control" [formControlName]="'content'" type="text" placeholder="Post content here..."></textarea><br>
+    <div *ngIf="this.errors" class="alert alert-danger">{{this.errors}}</div>
+    <input style="margin: 2%; width: 7rem" type="submit" class="btn btn-dark" value="Update!">
+  </form>
+</div>

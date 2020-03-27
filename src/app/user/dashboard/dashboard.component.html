@@ -1,0 +1,12 @@
+<div class="container" *ngIf="user | async as item">
+  <p class="text-primary">{{item.name}}</p>
+  <p class="text-muted">{{item.email}}</p>
+  <p class="text"><strong>Registered:</strong> {{item.date | date: 'dd LLL yyy'}}</p>
+  <div style="margin: 1rem;">
+      <button style="width: 5rem;" class="btn btn-primary" [routerLink]="['edit']" >Edit</button>
+  </div>
+  <div>
+    <p class="font-italic">My posts: </p>
+    <app-user-post-list></app-user-post-list>
+  </div>
+  </div>

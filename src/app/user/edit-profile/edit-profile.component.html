@@ -1,0 +1,12 @@
+<div class="container">
+<form [formGroup]="editProfileForm" (submit)="submit()" >
+  <input class="form-control" [formControlName]="'name'" type="text" placeholder="name"><br>
+  <input class="form-control" [formControlName]="'email'" type="email" placeholder="email" ><br>
+  <input class="form-control" [formControlName]="'oldPassword'" type="password" placeholder="old password" ><br>
+  <input class="form-control" [formControlName]="'passwordConfirm'" type="password" placeholder="new password"><br>
+  <input class="form-control" [formControlName]="'password'" type="password" placeholder="confirm new password"><br>
+  <div *ngIf="errors" class="alert alert-danger">{{errors}}</div>
+  <input type="submit" class="btn btn-dark" value="Confirm changes!"><br>
+  <button style="margin: 1rem 1rem 2.5rem 0; width: 5rem;" class="btn btn-danger" [routerLink]="['/dashboard']">Back!</button>
+</form>
+</div>

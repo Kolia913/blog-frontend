@@ -1,0 +1,6 @@
+<app-user-post-item *ngFor="let post of posts | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" [post]="post"></app-user-post-item>
+<h5 *ngIf="!posts">No posts:(</h5>
+<ngb-pagination *ngIf="posts"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="posts.length"></ngb-pagination>
