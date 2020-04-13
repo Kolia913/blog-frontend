@@ -1,6 +1,6 @@
 <div *ngIf="post | async as item" class="blog-post">
   <h2 class="blog-post-title">{{item.title}}</h2>
-  <p class="blog-post-meta">{{item.created_at | date: 'dd LLL yyy HH:m'| lowercase}} by
+  <p class="blog-post-meta">{{item.created_at | date: 'dd LLL yyy HH:mm'| lowercase}} by
     <a class="text text-primary" *ngIf="author | async as author">{{author.name}}</a></p>
   <img src="{{item.image}}" alt="No image" class="post-show-image">
   <article class="post-content" [innerHTML]="content"></article>
