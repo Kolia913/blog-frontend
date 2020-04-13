@@ -5,7 +5,7 @@ export interface PostModel {
   content: string | null;
   created_at?: Date;
   updated_at?: Date | null;
-  authorId: string;
+  authorId?: string;
   categorySlug: string | null;
-  imageUrl: string;
+  image: File;
 }

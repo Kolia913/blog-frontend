@@ -7,12 +7,10 @@ import {Observable} from 'rxjs';
 export class PostService {
   baseUrl = 'http://localhost:3000/api/';
   posts: PostModel[];
-  items: PostModel[];
   filteredPosts: PostModel[];
   constructor(private readonly http: HttpClient) {
     this.http.get<PostModel[]>(`${this.baseUrl}posts`).subscribe(items => {
-        this.items = items
-        this.posts = this.items.slice().sort((a, b) =>  new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        this.posts = items.slice().sort((a, b) =>  new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
         this.filteredPosts = this.posts
     });
   }
@@ -26,20 +24,20 @@ export class PostService {
     return this.http.get<PostModel>(`${this.baseUrl}posts/${slug}`);
   }
   getByCategory(categorySlug: string): void {
-    this.http.get<PostModel[]>(`${this.baseUrl}posts/category/${categorySlug}`).subscribe(items => this.posts = items);
+    this.http.get<PostModel[]>(`${this.baseUrl}posts/category/${categorySlug}`).subscribe(items => this.filteredPosts = items);
   }
   getCurrentUserPosts(id: string): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(`${this.baseUrl}posts/author/${id}`);
   }
-  add(post: PostModel): Observable<PostModel> {
-    return this.http.post<PostModel>(`${this.baseUrl}posts/add`, post, {
+  add(data: FormData): Observable<PostModel> {
+    return this.http.post<PostModel>(`${this.baseUrl}posts/add`, data, {
       headers: new HttpHeaders({
         'auth-token': localStorage.getItem('access-token')
       })
     });
   }
-  edit(slug: string, post: PostModel): Observable<PostModel> {
-    return this.http.put<PostModel>(`${this.baseUrl}posts/edit/${slug}`, post, {
+  edit(slug: string, data: FormData): Observable<PostModel> {
+    return this.http.put<PostModel>(`${this.baseUrl}posts/edit/${slug}`, data, {
       headers: new HttpHeaders({
         'auth-token': localStorage.getItem('access-token')
       })

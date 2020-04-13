@@ -15,13 +15,16 @@ export class EditGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     if (!localStorage.getItem('access-token')) { return }
     const token: TokenModel = this.helper.decodeToken(localStorage.getItem('access-token'))
-    this.postService.get(route.paramMap.get('slug')).subscribe( item => {
-      if (token._id !== item.authorId) {
-        this.router.navigate(['/']).catch(err => console.log(err))
-        return false
-      }
+    if (!token.admin) {
+      this.postService.get(route.paramMap.get('slug')).subscribe(item => {
+        if (token._id !== item.authorId) {
+          this.router.navigate(['/']).catch(err => console.log(err))
+          return false
+        }
+        return true
+      })
       return true
-    })
+    }
     return true
   }
 }

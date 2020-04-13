@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../category/common/service/category.service';
 import {PostFormService} from '../common/service/post-form.service';
 import {TokenModel} from '../../common/model/token.model';
@@ -7,75 +7,61 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {PostModel} from '../common/model/post.model';
 import {PostService} from '../common/service/post.service';
 import {Router} from '@angular/router';
+import {tap} from 'rxjs/operators';
+import {FormDataService} from '../../form-data/common/service/form-data.service';
 
 @Component({
   selector: 'app-post-add',
   templateUrl: './post-add.component.html',
   styleUrls: ['./post-add.component.css']
 })
-export class PostAddComponent implements OnInit {
+export class PostAddComponent implements OnInit, OnDestroy {
   errors: string;
   addPost: FormGroup;
   imageUrl: string;
-  helper = new JwtHelperService()
+  helper = new JwtHelperService();
   constructor(readonly categoryService: CategoryService,
               private readonly postFormService: PostFormService,
               private readonly postService: PostService,
-              private readonly router: Router) {
-    this.addPost = this.postFormService.createForm()
+              private readonly router: Router,
+              private readonly formDataService: FormDataService) {
+    this.addPost = this.postFormService.postForm
+    this.addPost.addControl('image', new FormControl(null, [Validators.required]))
   }
 
   ngOnInit(): void {
-    this.imageUrl = '../../../assets/placeholder-img-3.jpg'
-    this.addPost.get('imageUrl').valueChanges.subscribe( value => {
-      if (value === '') {
-        this.imageUrl = '../../../assets/placeholder-img-3.jpg'
-        return
-      }
-      this.imageUrl = value.toString()
-    })
   }
 
   submit(): void {
-   if (this.addPost.invalid) {
-      if ( this.addPost.get('title').invalid) {
-        this.errors = 'Title is invalid'
-        return
-      }
-      if ( this.addPost.get('description').invalid) {
-        this.errors = 'Description is invalid (max length is 255)'
-        return
-      }
-      if ( this.addPost.get('content').invalid) {
-        this.errors = 'Content is invalid (min length is 6)'
-        return
-      }
-      if ( this.addPost.get('category').invalid) {
-        this.errors = 'Invalid category'
-        return
-      }
-      if ( this.addPost.get('imageUrl').invalid) {
-        this.errors = 'Image url is invalid'
-        return
-      }
-      return
-    }
-    const token: TokenModel = this.helper.decodeToken(localStorage.getItem('access-token'))
-    const post: PostModel = {
-      authorId: token._id,
-      categorySlug:  this.addPost.get('category').value,
-      content:  this.addPost.get('content').value,
-      description:  this.addPost.get('description').value,
-      imageUrl:  this.addPost.get('imageUrl').value,
-      title:  this.addPost.get('title').value
-    }
-    this.postService.add(post).subscribe(item => {
+   if (!this.postFormService.isValid()) {
+     if ( this.addPost.get('image').invalid) {
+       this.errors = 'Image is invalid'
+       return
+     }
+     this.errors = this.postFormService.errors
+     return
+   }
+   const token: TokenModel = this.helper.decodeToken(localStorage.getItem('access-token'));
+   const data = this.formDataService.formGroupToFormData(this.addPost)
+   data.append('authorId', token._id)
+   this.postService.add(data).subscribe(item => {
       if ( item ) {
-        this.router.navigate(['/posts', item.slug]).catch(err => console.log(err))
+        this.addPost.reset()
+        this.router.navigate(['/posts', item.slug]).catch(err => console.log(err));
       }
     },
       err => {
-      this.errors = err.error
-      })
+      this.errors = err.error;
+      });
+  }
+
+  async changeImage($event: File) {
+    console.log($event);
+    this.addPost.patchValue({
+      image: $event,
+    });
+  }
+  ngOnDestroy(): void {
+    this.addPost.reset()
   }
 }

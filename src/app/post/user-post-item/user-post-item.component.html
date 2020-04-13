@@ -7,7 +7,7 @@
       </h3>
       <div class="mb-1 text-muted">{{post.created_at | date: 'dd LLL yyy HH:m'| lowercase}}</div>
       <p class="card-text mb-auto" style="margin-right: 15%">{{post.description}}</p>
-      <img class="post-img" alt="" src="{{post.imageUrl}}">
+      <img class="post-img" alt="" src="{{post.image}}">
       <div>
       <a [routerLink]="['/posts/edit', post.slug]">Edit!</a> <img style="width: 1rem; height: 1rem; margin: 2%" src="../../../assets/trash.png" alt="" (click)="removePost()">
       </div>

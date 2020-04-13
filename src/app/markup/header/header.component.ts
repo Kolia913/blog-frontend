@@ -2,6 +2,8 @@ import {AfterViewChecked, Component, DoCheck, OnChanges, OnInit} from '@angular/
 import {UserService} from '../../user/common/service/user.service';
 import {Observable} from 'rxjs';
 import {UserModel} from '../../user/common/model/user.model';
+import {PostService} from '../../post/common/service/post.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,10 @@ import {UserModel} from '../../user/common/model/user.model';
 })
 export class HeaderComponent implements OnInit, DoCheck {
   signedIn: boolean;
-  constructor(readonly userService: UserService) { }
+  isSearching: boolean;
+  filter = new FormControl('');
+  constructor(readonly userService: UserService,
+              private readonly postService: PostService) {this.isSearching = false}
 
   ngOnInit(): void {
   }
@@ -22,5 +27,12 @@ export class HeaderComponent implements OnInit, DoCheck {
   logOut(): void {
     this.userService.logout()
     window.location.reload()
+  }
+
+  search() {
+    this.isSearching = !this.isSearching
+    this.filter.valueChanges.subscribe(value => {
+      this.postService.searchPosts(value)
+    })
   }
 }

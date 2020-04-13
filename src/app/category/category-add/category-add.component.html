@@ -1,0 +1,14 @@
+<div style="border: 1px solid rgba(0, 0, 0, .3); border-radius: 2rem; padding: 0.5rem;">
+  <form [formGroup]="categoryAdd" (submit)="submit()">
+    <input class="form-control add-category-input" [formControlName]="'title'" placeholder="Name">
+    <div class="row" style="align-items: center; margin-left: 0">
+      <input class="form-control add-category-input" [formControlName]="'color'" placeholder="Color(#ffffff)">
+      <svg width="3rem" height="3rem" style="padding: 0.1rem">
+        <rect width="2.5rem" height="2.5rem" [ngStyle]="{'fill': color}"
+              style="stroke-width:1px; stroke: black;" rx="3"/>
+      </svg>
+    </div>
+    <input class="form-control add-category-input" [formControlName]="'description'" placeholder="Short description">
+    <input type="submit" class="btn btn-dark" value="Add!" style="margin-left: 5%">
+  </form>
+</div>

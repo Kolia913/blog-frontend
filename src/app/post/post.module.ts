@@ -14,8 +14,8 @@ import { PostAddComponent } from './post-add/post-add.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PostFormService} from './common/service/post-form.service';
-import { SearchPostComponent } from './search-post/search-post.component';
-import { PostSearchListComponent } from './post-search-list/post-search-list.component';
+import { AdminPostListComponent } from './admin-post-list/admin-post-list.component';
+import {ImageModule} from '../image/image.module';
 
 @NgModule({
    declarations: [PostItemComponent,
@@ -25,22 +25,22 @@ import { PostSearchListComponent } from './post-search-list/post-search-list.com
      UserPostListComponent,
      PostEditComponent,
      PostAddComponent,
-     SearchPostComponent,
-     PostSearchListComponent],
+     AdminPostListComponent],
   exports: [
     PostListComponent,
     UserPostListComponent,
-    SearchPostComponent,
+    AdminPostListComponent
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    CategoryModule,
-    RouterModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        CategoryModule,
+        RouterModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        FormsModule,
+        ImageModule
+    ],
   providers: [PostService, PostFormService]
 })
 export class PostModule { }

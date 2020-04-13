@@ -7,7 +7,7 @@
   </h3>
   <div class="mb-1 text-muted">{{post.created_at | date: 'dd LLL yyy HH:m'| lowercase}}</div>
   <p class="card-text mb-auto" style="margin-right: 15%">{{post.description}}</p>
-  <img class="post-img" alt="Thumbnail [200x250]" src="{{post.imageUrl}}">
+  <img class="post-img" alt="Thumbnail [200x250]" src="{{post.image}}">
   <a [routerLink]="['/posts',post.slug]">Continue reading</a>
 </div>
   </div>

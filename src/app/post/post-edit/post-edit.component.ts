@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PostService} from '../common/service/post.service';
 import {CategoryService} from '../../category/common/service/category.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {PostModel} from '../common/model/post.model';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {TokenModel} from '../../common/model/token.model';
 import {PostFormService} from '../common/service/post-form.service';
+import {Location} from '@angular/common';
+import {FormDataService} from '../../form-data/common/service/form-data.service';
+import {ImageService} from '../../image/common/service/image.service';
 
 @Component({
   selector: 'app-post-edit',
   templateUrl: './post-edit.component.html',
   styleUrls: ['./post-edit.component.css']
 })
-export class PostEditComponent implements OnInit {
+export class PostEditComponent implements OnInit, OnDestroy {
   editPost: FormGroup;
   imageUrl: string;
   errors: string;
@@ -22,69 +24,47 @@ export class PostEditComponent implements OnInit {
   constructor(private readonly postService: PostService,
               readonly categoryService: CategoryService,
               private readonly  route: ActivatedRoute,
-              private readonly router: Router,
-              readonly postFormService: PostFormService) {
-    this.editPost = this.postFormService.createForm()
+              private readonly location: Location,
+              readonly postFormService: PostFormService,
+              private readonly formDataService: FormDataService) {
+    this.editPost = this.postFormService.postForm
+    this.editPost.addControl('image', new FormControl(null))
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( params => {
       this.slug = params.get('slug')
       this.postService.get(this.slug).subscribe( item => {
+        this.imageUrl = item.image.toString()
         this.editPost.patchValue({
           title: item.title,
           description: item.description,
           content: item.content,
-          category: item.categorySlug,
-          imageUrl: item.imageUrl
+          categorySlug: item.categorySlug,
         })
       })
     })
-    this.editPost.get('imageUrl').valueChanges.subscribe(value => {
-      if (value === '') {
-        this.imageUrl = '../../../assets/placeholder-img-3.jpg'
-        return
-      }
-      this.imageUrl = value.toString()
-    })
   }
   submit(): void {
-    if (this.editPost.invalid) {
-      if (this.editPost.get('title').invalid) {
-        this.errors = 'Title is invalid'
-        return
-      }
-      if (this.editPost.get('description').invalid) {
-        this.errors = 'Description is invalid (max length is 255)'
-        return
-      }
-      if (this.editPost.get('content').invalid) {
-        this.errors = 'Content is invalid (min length is 6)'
-        return
-      }
-      if (this.editPost.get('category').invalid) {
-        this.errors = 'Invalid category'
-        return
-      }
-      if (this.editPost.get('imageUrl').invalid) {
-        this.errors = 'Image url is invalid'
-        return
-      }
+    if (!this.postFormService.isValid()) {
+      this.errors = this.postFormService.errors
       return
     }
-    const token: TokenModel = this.helper.decodeToken(localStorage.getItem('access-token'))
-    const post: PostModel = {
-      authorId: token._id,
-      categorySlug: this.editPost.get('category').value,
-      content: this.editPost.get('content').value,
-      description: this.editPost.get('description').value,
-      imageUrl: this.editPost.get('imageUrl').value,
-      title: this.editPost.get('title').value
-    }
-    this.postService.edit(this.slug, post).subscribe(item => {
+    const data = this.formDataService.formGroupToFormData(this.editPost)
+    this.postService.edit(this.slug, data).subscribe(item => {
       if ( item ) {
-         this.router.navigate(['/dashboard']).catch(err => console.log(err))
+          this.editPost.reset()
+          this.location.back()
       }
     }, err => this.errors = err.error)
+  }
+
+  async changeImage($event: File) {
+    this.editPost.patchValue({
+      image: $event,
+    });
+  }
+  ngOnDestroy(): void {
+    this.editPost.reset()
   }
 }

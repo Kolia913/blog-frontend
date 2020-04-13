@@ -15,6 +15,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthGuardService} from './common/service/auth-guard.service';
 import {EditGuardService} from './common/service/edit-guard.service';
 import { NotFoundComponent } from './markup/not-found/not-found.component';
+import {AdminGuardService} from './common/service/admin-guard.service';
+import {AdminModule} from './admin/admin.module';
+import {AdminChildGuardService} from './common/service/admin-child-guard.service';
+import {FormDataModule} from './form-data/form-data.module';
 
 @NgModule({
   declarations: [
@@ -33,9 +37,11 @@ import { NotFoundComponent } from './markup/not-found/not-found.component';
         AppRoutingModule,
         UserModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        AdminModule,
+        FormDataModule
     ],
-  providers: [AuthGuardService, EditGuardService],
+  providers: [AuthGuardService, EditGuardService, AdminGuardService, AdminChildGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

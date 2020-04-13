@@ -1,0 +1,13 @@
+<div class="col-md-6" style="border: 1px solid rgba(0, 0, 0, .3); border-radius: 2rem; margin: 1rem; padding: 1rem">
+<p class="font-italic">{{category.title}}</p>
+<p class="text-muted">Color:</p>
+<div class="row" style="margin-left: 0.5rem">
+<svg width="2rem" height="2rem" style="padding: 0.1rem">
+  <rect width="1.5rem" height="1.5rem" [ngStyle]="{'fill': category.color}"
+        style="stroke-width:1px; stroke: black;" rx="3"/>
+</svg><p>{{category.color}}</p>
+</div>
+<p class="font-weight-light">{{category.description}}</p>
+  <img style="width: 1.5rem; height: 1.5rem; margin: 2px; opacity: 0.6" src="../../../assets/edit.png" [routerLink]="['edit', category.slug]">
+  <img style="width: 1.5rem; height: 1.5rem; margin: 2px; opacity: 0.6" src="../../../assets/trash.png" (click)="removeCategory()">
+</div>
