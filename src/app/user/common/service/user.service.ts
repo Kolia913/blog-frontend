@@ -15,7 +15,7 @@ export class UserService {
   constructor(private readonly http: HttpClient) {
   }
   login(user: UserLoginModel): Observable<string> {
-    return this.http.post<string>(`${this.baseUrl}user/login`, user)
+     return this.http.post<string>(`${this.baseUrl}user/login`, user)
   }
   logout(): void {
     localStorage.removeItem('access-token')
