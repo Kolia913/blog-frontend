@@ -1,0 +1,10 @@
+<div style="border-top: 1px; border-bottom: 1px; margin: 1px;">
+  <div style="display: flex; justify-content: space-between">
+  <p class="text text-primary">{{userName}}</p>
+    <img *ngIf="!canDelete" src="../../../assets/trash.png" (click)="deleteComment(comment._id)"
+         style="width: 1rem; height: 1rem; margin-left: 80%;" alt="delete">
+  <p class="text text-muted" style="font-size: 10px; ">{{comment.created_at | date: 'MMMM d'}}, {{comment.created_at | date: 'yyyy'}}
+    at {{comment.created_at | date: 'hh:mm'}}</p>
+  </div>
+  <p [innerHTML]="content"></p>
+</div>

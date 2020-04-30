@@ -45,13 +45,13 @@ export class PostEditComponent implements OnInit, OnDestroy {
       })
     })
   }
-  submit(): void {
+  async submit(): Promise<void> {
     if (!this.postFormService.isValid()) {
       this.errors = this.postFormService.errors
       return
     }
     const data = this.formDataService.formGroupToFormData(this.editPost)
-    this.postService.edit(this.slug, data).subscribe(item => {
+    await this.postService.edit(this.slug, data).subscribe(item => {
       if ( item ) {
           this.editPost.reset()
           this.location.back()

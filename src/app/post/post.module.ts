@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PostFormService} from './common/service/post-form.service';
 import { AdminPostListComponent } from './admin-post-list/admin-post-list.component';
 import {ImageModule} from '../image/image.module';
+import {CommentModule} from '../comment/comment.module';
 
 @NgModule({
    declarations: [PostItemComponent,
@@ -39,7 +40,8 @@ import {ImageModule} from '../image/image.module';
         NgbPaginationModule,
         ReactiveFormsModule,
         FormsModule,
-        ImageModule
+        ImageModule,
+        CommentModule
     ],
   providers: [PostService, PostFormService]
 })

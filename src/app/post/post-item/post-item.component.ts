@@ -1,8 +1,7 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PostModel} from '../common/model/post.model';
 import {CategoryService} from '../../category/common/service/category.service';
-import {CategoryModel} from '../../category/common/model/category.model';
-import {Observable} from 'rxjs';
+
 
 @Component({
   selector: 'app-post-item',

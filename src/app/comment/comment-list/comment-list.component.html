@@ -1,0 +1,16 @@
+<div style="margin: 2rem; background: #f9f9f9; padding: 1rem; border-radius: 2rem">
+<app-comment-item appComment [authorId]="comment.authorId" [postAuthor]="postAuthor"
+                  *ngFor="let comment of comments | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
+                  [comment]="comment"></app-comment-item>
+ <ngb-pagination *ngIf="comments"
+                  [hidden]="!comments.length"
+                  [(page)]="page"
+                  [pageSize]="pageSize"
+                  [collectionSize]="comments.length"></ngb-pagination>
+<form [formGroup]="commentForm" (submit)="submit()" style="padding: 1rem">
+  <textarea style="margin: 0.5rem;" class="form-control" type="text" placeholder="Comment..." [formControlName]="'content'"></textarea>
+  <input [disabled]="!userService.isLoggedIn()" type="submit" class="btn btn-dark" value="Add">
+  <label *ngIf="!userService.isLoggedIn()" class="text text-muted"> Please
+    <span class="text text-primary" [routerLink]="['/login']">log in</span> to write comments</label>
+</form>
+</div>

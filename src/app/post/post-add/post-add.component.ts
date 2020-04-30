@@ -32,9 +32,9 @@ export class PostAddComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
    if (!this.postFormService.isValid()) {
-     if ( this.addPost.get('image').invalid) {
+     if (this.addPost.get('image').invalid) {
        this.errors = 'Image is invalid'
        return
      }
@@ -44,7 +44,7 @@ export class PostAddComponent implements OnInit, OnDestroy {
    const token: TokenModel = this.helper.decodeToken(localStorage.getItem('access-token'));
    const data = this.formDataService.formGroupToFormData(this.addPost)
    data.append('authorId', token._id)
-   this.postService.add(data).subscribe(item => {
+   await this.postService.add(data).subscribe(item => {
       if ( item ) {
         this.addPost.reset()
         this.router.navigate(['/posts', item.slug]).catch(err => console.log(err));

@@ -43,14 +43,14 @@ export class CategoryEditComponent implements OnInit, OnDestroy {
     })
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     if (!this.categoryFormService.isValid()) {
       this.error = this.categoryFormService.error
       alert(this.error)
       return
     }
     const data = this.formDataService.formGroupToFormData(this.categoryEdit)
-    this.categoryService.edit(this.slug, data).subscribe(item => {
+    await this.categoryService.edit(this.slug, data).subscribe(item => {
         this.categoryEdit.reset()
         this.router.navigate(['/admin/categories']).catch(err => console.log(err))
       },

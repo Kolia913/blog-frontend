@@ -5,4 +5,7 @@
   <img src="{{item.image}}" alt="No image" class="post-show-image">
   <article class="post-content" [innerHTML]="content"></article>
   <p class="text-muted" style="margin: 1%" *ngIf="item.updated_at">Last update: {{item.updated_at | date: 'dd LLL yyy HH:mm'| lowercase}}</p>
+  <div>
+    <app-comment-list [postSlug]="item.slug" [postAuthor]="item.authorId"></app-comment-list>
+  </div>
 </div>

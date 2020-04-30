@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     if (this.registerForm.invalid) {
       if (this.registerForm.get('name').invalid) {
         this.errors = `Name is invalid`
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.get('password').value
 
     }
-    this.userService.registerUser(user).subscribe( () => {
+    await this.userService.registerUser(user).subscribe( () => {
        this.router.navigate(['/login']).catch(err => console.log(err)),
       alert(`Account successfully created!`)
     },

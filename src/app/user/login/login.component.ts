@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-   submit(): void {
+   async submit(): Promise<void> {
    if (this.loginForm.invalid) {
      if (this.loginForm.get('email').invalid) {
        this.error = `"email" must be a valid email`
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
      }
      return
     }
-   this.userService.login(this.loginForm.value).subscribe(
+   await this.userService.login(this.loginForm.value).subscribe(
       item => {
         localStorage.setItem('access-token', item)
         this.router.navigate(['/']).catch(err => console.log(err))

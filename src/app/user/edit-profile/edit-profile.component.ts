@@ -40,7 +40,7 @@ export class EditProfileComponent implements OnInit {
     })
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     if (this.editProfileForm.get('passwordConfirm').value || this.editProfileForm.get('password').value) {
     if (this.editProfileForm.get('passwordConfirm').value !== this.editProfileForm.get('password').value) {
       this.errors = `Password does not match!`
@@ -68,7 +68,7 @@ export class EditProfileComponent implements OnInit {
       password: this.editProfileForm.get('password').value,
       oldPassword: this.editProfileForm.get('oldPassword').value
     }
-    this.userService.editUser(user).subscribe(() => {
+    await this.userService.editUser(user).subscribe(() => {
       this.router.navigate(['/']).catch(err => console.log(err))
     },
       err => {
