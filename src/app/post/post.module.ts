@@ -17,6 +17,7 @@ import {PostFormService} from './common/service/post-form.service';
 import { AdminPostListComponent } from './admin-post-list/admin-post-list.component';
 import {ImageModule} from '../image/image.module';
 import {CommentModule} from '../comment/comment.module';
+import {ChatModule} from '../chat/chat.module';
 
 @NgModule({
    declarations: [PostItemComponent,
@@ -41,7 +42,8 @@ import {CommentModule} from '../comment/comment.module';
         ReactiveFormsModule,
         FormsModule,
         ImageModule,
-        CommentModule
+        CommentModule,
+        ChatModule
     ],
   providers: [PostService, PostFormService]
 })

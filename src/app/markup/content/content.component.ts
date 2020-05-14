@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-
+  isChatOpened: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  openChat(): void {
+      this.isChatOpened = !this.isChatOpened
+  }
 }

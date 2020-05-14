@@ -22,6 +22,7 @@ import {FormDataModule} from './form-data/form-data.module';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {ChatModule} from './chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -43,8 +44,10 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     ReactiveFormsModule,
     AdminModule,
     FormDataModule,
-    /*AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule*/
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule,
+    AngularFireDatabaseModule,
+    ChatModule
   ],
   providers: [AuthGuardService, EditGuardService, AdminGuardService, AdminChildGuardService],
   bootstrap: [AppComponent]

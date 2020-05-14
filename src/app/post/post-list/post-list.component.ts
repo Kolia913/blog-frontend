@@ -1,7 +1,5 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {PostService} from '../common/service/post.service';
-import {PostModel} from '../common/model/post.model';
-import {NgxPaginationModule} from 'ngx-pagination';
 
 @Component({
   selector: 'app-post-list',
