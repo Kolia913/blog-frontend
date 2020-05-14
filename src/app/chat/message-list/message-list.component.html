@@ -1,0 +1,14 @@
+<div style="background-color: #e5e5e5; border-radius: 1rem; padding: 2rem; box-shadow: 0 0 10px #999999">
+<div scroller style="overflow-y: scroll; max-height: 13rem;">
+  <div *ngIf="!messages" style="margin-left: 45%" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+<app-message-item *ngFor="let message of messages"
+                  [message]="message"></app-message-item>
+</div>
+<form [formGroup]="chatForm" (submit)="submit()">
+  <input style="margin: 0.3rem" [formControlName]="'msg'" class="form-control" type="text" placeholder="Message...">
+  <input style="margin: 0.3rem"  [disabled]="!userService.isLoggedIn()" type="submit" class="btn btn-dark" value="Send!">
+  <p *ngIf="!userService.isLoggedIn()"><a [routerLink]="['/login']">Log in</a> to send message</p>
+</form>
+</div>
