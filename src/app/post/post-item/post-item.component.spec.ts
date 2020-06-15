@@ -9,6 +9,12 @@ import {Component} from '@angular/core';
 import {PostModel} from '../common/model/post.model';
 
 
+@Component({
+  template: '<app-post-item [post]="post"></app-post-item>'
+})
+class TestComponent {
+  post: PostModel = {categorySlug: 'games', content: 'content', description: 'desc', image: undefined, title: 'title'}
+}
 
 describe('PostItemComponent', () => {
   let component: TestComponent
@@ -35,18 +41,12 @@ describe('PostItemComponent', () => {
   it('should create component', () => {
     expect(component).toBeTruthy()
   })
-  it('should call CategoryService', () => {
+  it('should call CategoryService with args', () => {
     expect(spy.calls.any()).toBeTruthy()
+    expect(spy).toHaveBeenCalledWith('games')
   });
   it('should get category', () => {
     expect(fixture.nativeElement.querySelector('p').innerText).toEqual('desc')
   });
 })
 
-@Component({
-  selector: 'app-test-component',
-  template: '<app-post-item [post]="post"></app-post-item>'
-})
-export class TestComponent {
-  post: PostModel = {categorySlug: 'games', content: 'content', description: 'desc', image: undefined, title: 'title'}
-}
