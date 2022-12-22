@@ -27,7 +27,7 @@
     "angular-jwt": "^0.1.11",
     "angularfire2": "^5.4.2",
     "firebase": "^7.14.3",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jw-angular-pagination": "^1.1.0",
     "jwt-decode": "^2.2.0",
     "linkifyjs": "^2.1.9",
